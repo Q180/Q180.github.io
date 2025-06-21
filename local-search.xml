@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>生成ssh key</title>
+    <link href="/2025/06/21/%E7%94%9F%E6%88%90ssh-key/"/>
+    <url>/2025/06/21/%E7%94%9F%E6%88%90ssh-key/</url>
+    
+    <content type="html"><![CDATA[<p><strong>目录 (Table of Contents)</strong></p><p>[TOCM]</p><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>“fatal: Could not read from remote repository.”</p><h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><ul><li>客户端与服务端未生成 ssh key</li><li>客户端与服务端的ssh key不匹配</li></ul><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p><strong>1. 生成新的SSH key</strong></p><p>如果是客户端与服务端未生成ssh key，那么直接使用：<br><code>ssh-keygen -t rsa -C &quot;youremail@example.com&quot;</code></p><p><strong>2. 将SSH key 添加到 ssh-agent</strong></p><p>使用 <code>ssh-add ~/.ssh/id_rsa</code> 将产生的新ssh key添加到ssh-agent中</p><p><strong>补充：</strong> 如果出现“Could not open a connection to your authentication agent.”的错误可以使用以下两种方式解决：<code>eval &quot;$(ssh-agent -s)&quot;</code>或者<code>eval </code>ssh-agent&#96;&#96;</p><p><strong>3. 将SSH key 添加到你的GitHub账户</strong></p><p>在账户选项中选择 “<em>Settings</em>”–&gt;“<em>SSH and GPG keys</em>”–&gt;“<em>New SSH key</em>”，然后打开之前新生成的id_rsa.pub文件，将密钥复制后填写到账户中【注意填写时的格式要求】</p><p><strong>4. 验证key</strong></p><p>使用 <code>ssh -T git@github.com</code> 对ssh key 进行验证</p><p><code>Hi Q180! You&#39;ve successfully authenticated, but GitHub does not provide shell access.</code></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>问题/bug</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Hello World</title>
     <link href="/2025/06/19/hello-world/"/>
     <url>/2025/06/19/hello-world/</url>
@@ -11,6 +30,12 @@
     <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
     
     
+    
+    <tags>
+      
+      <tag>hexo 个人博客</tag>
+      
+    </tags>
     
   </entry>
   
