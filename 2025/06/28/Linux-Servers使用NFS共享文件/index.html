@@ -19,21 +19,21 @@
   <meta name="author" content="Q180">
   <meta name="keywords" content="">
   
-    <meta name="description" content="起因：在大学期间用过一些app去写过一些笔记，发现要么是app不好用；要么是自己太弄得太随意了，根本不能回头看。总之，之前很多笔记都被自己给抛弃了。如今下定决心自己搞一个技术博客，专门记录自己的学习笔记。  Hexo是一个使用MarkDown格式文本快速构建静态网页的工具 Hexo官网；而GitHub Pages则是能部署一个静态网页，这俩简直是天作之合。  开始之前你需要准备好以下工具 Nod">
+    <meta name="description" content="起因：实验室的服务器需要进行重装系统，在那之前需要进行存量数据备份。而数据备份需要大量空间&amp;&amp;数据传输，我们采用nfs的方式将目标服务器上的数据进行转移。   🔧 一、服务器端配置（提供共享目录） 安装NFS服务包  1234567##  Debiansudo apt updatesudo apt install nfs-kernel-server  # 包含NFS核心服务##">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用 hexo &amp;&amp; GitHub Pages 搭建自己的博客">
-<meta property="og:url" content="https://q180.github.io/2025/06/22/%E4%BD%BF%E7%94%A8-hexo-GitHub-Pages-%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:title" content="Linux Servers使用NFS共享文件">
+<meta property="og:url" content="https://q180.github.io/2025/06/28/Linux-Servers%E4%BD%BF%E7%94%A8NFS%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6/index.html">
 <meta property="og:site_name" content="Q180">
-<meta property="og:description" content="起因：在大学期间用过一些app去写过一些笔记，发现要么是app不好用；要么是自己太弄得太随意了，根本不能回头看。总之，之前很多笔记都被自己给抛弃了。如今下定决心自己搞一个技术博客，专门记录自己的学习笔记。  Hexo是一个使用MarkDown格式文本快速构建静态网页的工具 Hexo官网；而GitHub Pages则是能部署一个静态网页，这俩简直是天作之合。  开始之前你需要准备好以下工具 Nod">
+<meta property="og:description" content="起因：实验室的服务器需要进行重装系统，在那之前需要进行存量数据备份。而数据备份需要大量空间&amp;&amp;数据传输，我们采用nfs的方式将目标服务器上的数据进行转移。   🔧 一、服务器端配置（提供共享目录） 安装NFS服务包  1234567##  Debiansudo apt updatesudo apt install nfs-kernel-server  # 包含NFS核心服务##">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-06-21T16:15:28.000Z">
-<meta property="article:modified_time" content="2025-06-28T11:38:16.490Z">
+<meta property="article:published_time" content="2025-06-28T11:36:57.000Z">
+<meta property="article:modified_time" content="2025-06-28T11:42:48.938Z">
 <meta property="article:author" content="Q180">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>使用 hexo &amp;&amp; GitHub Pages 搭建自己的博客 - Q180</title>
+  <title>Linux Servers使用NFS共享文件 - Q180</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="使用 hexo &amp;&amp; GitHub Pages 搭建自己的博客"></span>
+            <span id="subtitle" data-typed-text="Linux Servers使用NFS共享文件"></span>
           
         </div>
 
@@ -210,8 +210,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-06-22 00:15" pubdate>
-          2025年6月22日 凌晨
+        <time datetime="2025-06-28 19:36" pubdate>
+          2025年6月28日 晚上
         </time>
       </span>
     
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          607 字
+          625 字
         
       </span>
     
@@ -270,44 +270,78 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">使用 hexo &amp;&amp; GitHub Pages 搭建自己的博客</h1>
+            <h1 id="seo-header">Linux Servers使用NFS共享文件</h1>
             
             
               <div class="markdown-body">
                 
                 <blockquote>
-<p>起因：在大学期间用过一些app去写过一些笔记，发现要么是app不好用；要么是自己太弄得太随意了，根本不能回头看。总之，之前很多笔记都被自己给抛弃了。如今下定决心自己搞一个技术博客，专门记录自己的学习笔记。</p>
+<p>起因：实验室的服务器需要进行重装系统，在那之前需要进行存量数据备份。而数据备份需要大量空间&amp;&amp;数据传输，我们采用nfs的方式将目标服务器上的数据进行转移。</p>
 </blockquote>
-<p>Hexo是一个使用MarkDown格式文本快速构建静态网页的工具 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo官网</a>；而GitHub Pages则是能部署一个静态网页，这俩简直是天作之合。</p>
 <hr>
-<h1 id="开始之前"><a href="#开始之前" class="headerlink" title="开始之前"></a>开始之前</h1><p>你需要准备好以下工具 Node.js、 Git。</p>
-<h1 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h1><h2 id="下载-Hexo"><a href="#下载-Hexo" class="headerlink" title="下载 Hexo"></a>下载 Hexo</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install hexo-cli -g<br></code></pre></td></tr></table></figure>
-<h2 id="初始化-Hexo"><a href="#初始化-Hexo" class="headerlink" title="初始化 Hexo"></a>初始化 Hexo</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo init [目录名称]   <span class="hljs-comment">#这里可以指定目录名称，默认为blog</span><br><span class="hljs-built_in">cd</span> blog               <span class="hljs-comment">#进入blog目录</span><br>npm install           <span class="hljs-comment">#安装依赖</span><br>hexo server           <span class="hljs-comment">#启动本地web服务，在浏览器输入localhost:4000预览博客</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="生成静态网页"><a href="#生成静态网页" class="headerlink" title="生成静态网页"></a>生成静态网页</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo g<br>hexo generate<br></code></pre></td></tr></table></figure>
-<p>生成后的关键文件和文件夹</p>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs nix">.deploy<span class="hljs-symbol">/</span>        <span class="hljs-comment">#需部署文件</span><br>node_modules<span class="hljs-symbol">/</span>   <span class="hljs-comment">#node.js依赖的插件</span><br>public<span class="hljs-symbol">/</span>         <span class="hljs-comment">#生成的静态网页文件</span><br>scaffolds<span class="hljs-symbol">/</span>      <span class="hljs-comment">#模版</span><br>source<span class="hljs-symbol">/</span>         <span class="hljs-comment">#博客正文和其他源文件</span><br>themes<span class="hljs-symbol">/</span>         <span class="hljs-comment">#主题</span><br>_config.yml     <span class="hljs-comment">#全局配置文件</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="Hexo-常用命令"><a href="#Hexo-常用命令" class="headerlink" title="Hexo 常用命令"></a>Hexo 常用命令</h2><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs axapta">hexo help                   <span class="hljs-meta">#查看帮助</span><br>hexo init                   <span class="hljs-meta">#初始化一个目录</span><br>hexo <span class="hljs-keyword">new</span> draft <span class="hljs-string">&quot;pageName&quot;</span><br>hexo <span class="hljs-keyword">new</span> <span class="hljs-string">&quot;postName&quot;</span>         <span class="hljs-meta">#新建文章</span><br>hexo <span class="hljs-keyword">new</span> page <span class="hljs-string">&quot;pageName&quot;</span>    <span class="hljs-meta">#新建页面</span><br>hexo generate || hexo g     <span class="hljs-meta">#生成网页，可在public目录查看</span><br>hexo <span class="hljs-keyword">server</span> || hexo s       <span class="hljs-meta">#本地预览</span><br>hexo deploy || hexo d       <span class="hljs-meta">#部署.deploy目录</span><br>hexo clean || hexo c        <span class="hljs-meta">#清除缓存，每次部署前都要删除.deploy目录</span><br><span class="hljs-meta"># 常用组合</span><br>hexo cl &amp;&amp; hexo g &amp;&amp; hexo d <span class="hljs-meta"># 部署到服务器</span><br>hexo cl &amp;&amp; hexo g &amp;&amp; hexo s <span class="hljs-meta"># 本地部署</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="进阶使用"><a href="#进阶使用" class="headerlink" title="进阶使用"></a>进阶使用</h2><p>暂无，后续有会持续更新</p>
-<h1 id="GitHub-Pages"><a href="#GitHub-Pages" class="headerlink" title="GitHub Pages"></a>GitHub Pages</h1><h2 id="创建GitHub-托管仓库"><a href="#创建GitHub-托管仓库" class="headerlink" title="创建GitHub 托管仓库"></a>创建GitHub 托管仓库</h2><p>创建名称为username.github.io的仓库，这是特殊的命名约定。可以通过 <a href="">http://username.github.io</a> 来访问个人主页</p>
-<h2 id="生成SSH-key"><a href="#生成SSH-key" class="headerlink" title="生成SSH key"></a>生成SSH key</h2><p>参考我之前写的关于SSH key的文章：<a href="/2025/06/21/%E7%94%9F%E6%88%90ssh-key/" title="生成ssh key">生成ssh-key</a></p>
-<h2 id="修改Hexo部署配置"><a href="#修改Hexo部署配置" class="headerlink" title="修改Hexo部署配置"></a>修改Hexo部署配置</h2><p>_config.yml文件在Hexo 项目根目录下</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml">deploy:<br>  type: git<br>  repo: git@github.com:yourname/yourname.github.io.git<br>  branch: master<br></code></pre></td></tr></table></figure>
-<h2 id="下载部署需要的插件"><a href="#下载部署需要的插件" class="headerlink" title="下载部署需要的插件"></a>下载部署需要的插件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install hexo-deployer-git --save<br></code></pre></td></tr></table></figure>
-
-<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>使用以下命令就可以部署了</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo cl &amp;&amp; hexo g &amp;&amp; hexo d<br></code></pre></td></tr></table></figure>
-<h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><h2 id="过程参考"><a href="#过程参考" class="headerlink" title="过程参考"></a>过程参考</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://yupaits.com/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/%E4%BD%BF%E7%94%A8hexo%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2">使用hexo快速搭建个人博客</a></li>
-<li><a target="_blank" rel="noopener" href="https://yupaits.com/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/%E4%BD%BF%E7%94%A8hexo%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2">Hexo教程，看这一篇就够了- How to系列</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_20042935/article/details/133920722">保姆级教程：从零构建GitHub Pages静态网站</a></li>
+<h3 id="🔧-一、服务器端配置（提供共享目录）"><a href="#🔧-一、服务器端配置（提供共享目录）" class="headerlink" title="🔧 一、服务器端配置（提供共享目录）"></a>🔧 <strong>一、服务器端配置（提供共享目录）</strong></h3><ol>
+<li><p><strong>安装NFS服务包</strong></p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">##  Debian</span><br><span class="hljs-built_in">sudo</span> apt update<br><span class="hljs-built_in">sudo</span> apt install nfs-kernel-server  <span class="hljs-comment"># 包含NFS核心服务</span><br><br><span class="hljs-comment">## CentOS</span><br><span class="hljs-built_in">sudo</span> yum install -y nfs-utils rpcbind <br><span class="hljs-comment"># nfs-utils 包含 NFS 服务核心组件，rpcbind 用于 RPC 协议通信[7,10](https://tencent.yuanbao/@ref)。</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>创建共享目录并设置权限</strong></p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">mkdir</span> -p /nfs_share  <span class="hljs-comment"># 创建共享目录</span><br><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">chown</span> nobody:nogroup /nfs_share  <span class="hljs-comment"># 所有权赋予匿名用户（安全推荐）[3,8](@ref)</span><br><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">chmod</span> 777 /nfs_share<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>配置NFS导出规则（<code>/etc/exports</code>）</strong></p>
+<p> 编辑配置文件，添加共享规则（示例允许IP段<code>192.168.1.0/24</code>读写）：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> vim /etc/exports<br></code></pre></td></tr></table></figure>
+<p> 添加内容：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">/nfs_share 192.168.1.0/24(rw,<span class="hljs-built_in">sync</span>,no_subtree_check,root_squash)<br><span class="hljs-comment"># 如需限制特定IP，替换192.168.1.0/24为客户端IP（如192.168.1.100）</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong>参数说明</strong>：<ul>
+<li><code>rw</code>：读写权限</li>
+<li><code>sync</code>：数据同步写入磁盘（安全优先）</li>
+<li><code>async</code> ：将数据先保存在内存缓冲区中，必要时才写入磁盘。</li>
+<li><code>no_subtree_check</code>：禁用子目录检查（提升性能）</li>
+<li><code>root_squash</code>：将客户端的root用户映射为匿名用户（<strong>关键安全选项</strong>），也可设为<code>no_root_squash</code></li>
+<li><code>all_squash</code>：强制映射客户端用户为匿名用户</li>
+<li><code>anonuid/anongid=65534</code>：映射到 <code>nobody</code> 用户（CentOS 默认 UID&#x2F;GID）</li>
+</ul>
+</li>
+</ul>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> exportfs -a  <span class="hljs-comment"># 重新加载exports配置</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>应用配置并启动服务</strong></p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Debian</span><br><span class="hljs-built_in">sudo</span> systemctl restart nfs-kernel-server  <span class="hljs-comment"># 重启服务</span><br><span class="hljs-built_in">sudo</span> systemctl <span class="hljs-built_in">enable</span> nfs-kernel-server  <span class="hljs-comment"># 开机自启</span><br><br><span class="hljs-comment"># CentOS</span><br><span class="hljs-built_in">sudo</span> systemctl <span class="hljs-built_in">enable</span> --now rpcbind nfs-server  <span class="hljs-comment"># 同时启用 rpcbind 和 NFS</span><br><span class="hljs-built_in">sudo</span> exportfs -arv  <span class="hljs-comment"># 动态重载配置</span><br></code></pre></td></tr></table></figure></li>
 </ol>
-<h2 id="过程遇到的一些问题"><a href="#过程遇到的一些问题" class="headerlink" title="过程遇到的一些问题"></a>过程遇到的一些问题</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43546721/article/details/139506583">完美解决 git 报错 “fatal: unable to access ‘https://github.com/.../.git‘: Recv failure Connection was rese</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41688840/article/details/125826614">部署hexo遇到报错ERROR Deployer not found: git的解决办法</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/38781463">hexo本地测试运行重启后页面空白,提示 : WARN No layout: index.html?</a></li>
+<hr>
+<h3 id="💻-二、客户端配置（挂载共享目录）"><a href="#💻-二、客户端配置（挂载共享目录）" class="headerlink" title="💻 二、客户端配置（挂载共享目录）"></a>💻 <strong>二、客户端配置（挂载共享目录）</strong></h3><ol>
+<li><p><strong>安装NFS客户端工具</strong></p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Debian</span><br><span class="hljs-built_in">sudo</span> apt update<br><span class="hljs-built_in">sudo</span> apt install nfs-common  <span class="hljs-comment"># 包含mount.nfs等工具</span><br><br><span class="hljs-comment"># CentOS</span><br><span class="hljs-built_in">sudo</span> yum install -y nfs-utils  <span class="hljs-comment"># 无需 rpcbind</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>创建本地挂载点</strong></p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">mkdir</span> -p /mnt/nfs_client  <span class="hljs-comment"># 本地目录用于挂载</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>手动挂载共享目录</strong></p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> mount -t nfs -o vers=4.2,noatime 192.168.1.10:/nfs_share /mnt/nfs_client<br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong>参数说明</strong>：<ul>
+<li><code>192.168.1.10</code>：替换为NFS服务器IP</li>
+<li><code>vers=4.2</code>：强制使用 NFSv4.2（性能更好）</li>
+<li><code>noatime</code>：禁用访问时间记录（减少磁盘写入）<a target="_blank" rel="noopener" href="https://tencent.yuanbao/@ref">11</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>开机自动挂载（编辑<code>/etc/fstab</code>）</strong></p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> vim /etc/fstab<br></code></pre></td></tr></table></figure>
+<p> 添加行：</p>
+ <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">192</span>.<span class="hljs-number">168</span>.<span class="hljs-number">1</span>.<span class="hljs-number">10</span>:/nfs_share  /mnt/nfs_client  nfs4  _netdev,noatime,vers=<span class="hljs-number">4</span>.<span class="hljs-number">2</span>,proto=tcp,hard,timeo=<span class="hljs-number">600</span>,retrans=<span class="hljs-number">2</span>  <span class="hljs-number">0</span> <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong>关键选项</strong>：<ul>
+<li><code>_netdev</code>：等待网络就绪后再挂载（避免启动失败）</li>
+<li><code>noatime</code>：禁用访问时间更新（减少磁盘写入）</li>
+<li><code>hard</code> + <code>timeo=600</code>：网络中断时持续重试（避免进程卡死）<a target="_blank" rel="noopener" href="https://tencent.yuanbao/@ref">11</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>验证挂载状态</strong></p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">df</span> -hT | grep nfs  <span class="hljs-comment"># 查看挂载信息</span><br>vim /mnt/nfs_client/test.txt  <span class="hljs-comment"># 测试写入</span><br></code></pre></td></tr></table></figure></li>
 </ol>
 
                 
@@ -326,8 +360,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>使用 hexo &amp;&amp; GitHub Pages 搭建自己的博客</div>
-      <div>https://q180.github.io/2025/06/22/使用-hexo-GitHub-Pages-搭建自己的博客/</div>
+      <div>Linux Servers使用NFS共享文件</div>
+      <div>https://q180.github.io/2025/06/28/Linux-Servers使用NFS共享文件/</div>
     </div>
     <div class="license-meta">
       
@@ -339,7 +373,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年6月22日</div>
+          <div>2025年6月28日</div>
         </div>
       
       
@@ -371,18 +405,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/06/28/Linux-Servers%E4%BD%BF%E7%94%A8NFS%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6/" title="Linux Servers使用NFS共享文件">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Linux Servers使用NFS共享文件</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/06/21/%E7%94%9F%E6%88%90ssh-key/" title="生成ssh key">
-                        <span class="hidden-mobile">生成ssh key</span>
+                      <a href="/2025/06/22/%E4%BD%BF%E7%94%A8-hexo-GitHub-Pages-%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/" title="使用 hexo &amp;&amp; GitHub Pages 搭建自己的博客">
+                        <span class="hidden-mobile">使用 hexo &amp;&amp; GitHub Pages 搭建自己的博客</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
