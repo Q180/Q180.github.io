@@ -1,0 +1,694 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.jpg">
+  <link rel="icon" href="/img/fluid.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Q180">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="实验室有台服务器需要从老版本的CentOS重装为Debian 12。当然在重装之前需要进行数据备份，这很重要！！  一、安装Debian系统 下载Debian镜像：访问Debian官网，下载最新的Debian 12镜像。&#x20;  制作启动U盘：使用工具（Rufus）将下载的镜像文件写入U盘，制作成启动盘。&#x20;  启动安装：通过U盘启动计算机，进入BIOS，然后到Debian安装界面">
+<meta property="og:type" content="article">
+<meta property="og:title" content="配置Debian Server">
+<meta property="og:url" content="https://q180.github.io/2025/07/03/%E9%85%8D%E7%BD%AEDebian-Server/index.html">
+<meta property="og:site_name" content="Mr. Q">
+<meta property="og:description" content="实验室有台服务器需要从老版本的CentOS重装为Debian 12。当然在重装之前需要进行数据备份，这很重要！！  一、安装Debian系统 下载Debian镜像：访问Debian官网，下载最新的Debian 12镜像。&#x20;  制作启动U盘：使用工具（Rufus）将下载的镜像文件写入U盘，制作成启动盘。&#x20;  启动安装：通过U盘启动计算机，进入BIOS，然后到Debian安装界面">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-07-03T11:23:37.000Z">
+<meta property="article:modified_time" content="2025-07-03T11:30:00.029Z">
+<meta property="article:author" content="Q180">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>配置Debian Server - Mr. Q</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"q180.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mr. Q</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="配置Debian Server"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-03 19:23" pubdate>
+          2025年7月3日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          877 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          8 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">配置Debian Server</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
+<p>实验室有台服务器需要从老版本的CentOS重装为Debian 12。当然在重装之前需要进行<strong>数据备份，这很重要！！</strong></p>
+</blockquote>
+<h2 id="一、安装Debian系统"><a href="#一、安装Debian系统" class="headerlink" title="一、安装Debian系统"></a><strong>一、安装Debian系统</strong></h2><ol>
+<li><p>下载Debian镜像：访问Debian官网，下载最新的Debian 12镜像。&#x20;</p>
+</li>
+<li><p>制作启动U盘：使用工具（Rufus）将下载的镜像文件写入U盘，制作成启动盘。&#x20;</p>
+</li>
+<li><p>启动安装：通过U盘启动计算机，进入BIOS，然后到Debian安装界面。&#x20;</p>
+</li>
+<li><p>设置系统：按照提示进行设置。</p>
+<ol>
+<li><p>安装非图形化界面</p>
+</li>
+<li><p>不需要进行网络配置，等安装好系统后在进行网络配置</p>
+</li>
+<li><p>安装ssh server（也可以等安装后，再下载配置）</p>
+</li>
+<li><p>除了一个启动磁盘自动分区外，其他磁盘不需要挂载</p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="二、配置网络-x20"><a href="#二、配置网络-x20" class="headerlink" title="二、配置网络&#x20;"></a>二、配置网络&#x20;</h2><h3 id="1-配置静态IP地址"><a href="#1-配置静态IP地址" class="headerlink" title="1. 配置静态IP地址"></a>1. 配置静态IP地址</h3><p>调整网络配置 <code>/etc/network/interfaces</code>，使得其形如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">auto enp6s0f0<br>iface enp6s0f0 inet static<br>    address 10.176.25.53 <span class="hljs-comment"># 分配到这个服务器的IP地址</span><br>    netmask 255.255.254.0 <span class="hljs-comment"># 网段的子网掩码，这个子网都是一样的</span><br>    gateway 10.176.24.1 <span class="hljs-comment"># 一般是子网的第一个主机</span><br></code></pre></td></tr></table></figure>
+
+<p>网络接口名字<code>altname enp6s0f0</code>每个主机是不大一样的，使用<code>ip a</code>命令查看网络端口对应的<code>altname</code>。</p>
+<p>重启网络网络服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> systemctl restart networking.service<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-校园网络认证"><a href="#2-校园网络认证" class="headerlink" title="2. 校园网络认证"></a>2. 校园网络认证</h3><p>挂载含有网络认证脚本的U盘，将脚本复制到服务器。</p>
+<p>运行脚本进行网络认证。</p>
+<blockquote>
+<p>到这步已经ping通外网IP，但是不能通过域名访问。</p>
+</blockquote>
+<h3 id="3-修改DNS"><a href="#3-修改DNS" class="headerlink" title="3. 修改DNS"></a>3. 修改DNS</h3><p>修改DNS配置文件<code>/etc/resolv.conf</code>，添加以下内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 在原始文件基础上添加</span><br><span class="hljs-comment"># nameserver 202.120.224.26 # 不能正常使用</span><br><span class="hljs-comment"># nameserver 1.1.1.1 # 不能正常使用</span><br>nameserver 114.114.114.114<br>nameserver 8.8.8.8<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>现在可以进行域名访问了。</p>
+</blockquote>
+<h2 id="三、apt换源"><a href="#三、apt换源" class="headerlink" title="三、apt换源"></a>三、apt换源</h2><p>修改<code>/etc/apt/sources.list</code>文件里的内容为（如果没有安装ssh server进行远程操作的话，可以把这个命令写到一个U盘文件里，使用<code>cat xx &gt;&gt; /etc/apt/sources.list</code>写入）</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># 统一采用阿里云镜像 </span><br>deb https:<span class="hljs-regexp">//mi</span>rrors.aliyun.com<span class="hljs-regexp">/debian/</span> bookworm main non-free non-free-firmware contrib deb-src https:<span class="hljs-regexp">//mi</span>rrors.aliyun.com<span class="hljs-regexp">/debian/</span> bookworm main non-free non-free-firmware contrib deb https:<span class="hljs-regexp">//mi</span>rrors.aliyun.com<span class="hljs-regexp">/debian-security/</span> bookworm-security main deb-src https:<span class="hljs-regexp">//mi</span>rrors.aliyun.com<span class="hljs-regexp">/debian-security/</span> bookworm-security main deb https:<span class="hljs-regexp">//mi</span>rrors.aliyun.com<span class="hljs-regexp">/debian/</span> bookworm-updates main non-free non-free-firmware contrib deb-src https:<span class="hljs-regexp">//mi</span>rrors.aliyun.com<span class="hljs-regexp">/debian/</span> bookworm-updates main non-free non-free-firmware contrib deb https:<span class="hljs-regexp">//mi</span>rrors.aliyun.com<span class="hljs-regexp">/debian/</span> bookworm-backports main non-free non-free-firmware contrib deb-src https:<span class="hljs-regexp">//mi</span>rrors.aliyun.com<span class="hljs-regexp">/debian/</span> bookworm-backports main non-free non-free-firmware contrib<br></code></pre></td></tr></table></figure>
+
+<p>终于可以使用apt，把需要的软件都安装一下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#root </span><br>apt-get update &amp;&amp; apt-get upgrade <br><span class="hljs-comment"># 安装必要软件 </span><br>apt-get install tmux zsh vim neofetch git <span class="hljs-built_in">sudo</span> curl rsync duf zip unzip screen fzf fd-find<br></code></pre></td></tr></table></figure>
+
+<h2 id="四、配置SSH-服务"><a href="#四、配置SSH-服务" class="headerlink" title="四、配置SSH 服务"></a><strong>四、配置SSH 服务</strong></h2><h3 id="1-安装SSH-服务（如果安装时没有装ssh-server）"><a href="#1-安装SSH-服务（如果安装时没有装ssh-server）" class="headerlink" title="1. 安装SSH 服务（如果安装时没有装ssh server）"></a>1. <strong>安装SSH 服务（如果安装时没有装ssh server）</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt-get install -y ssh<br></code></pre></td></tr></table></figure>
+
+<p>安装完成ssh 服务默认是开启的，手动开启命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/etc/init.d/ssh start<br></code></pre></td></tr></table></figure>
+
+<p>查看ssh服务状态</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/etc/init.d/ssh status<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-修改SSH配置文件"><a href="#2-修改SSH配置文件" class="headerlink" title="2. 修改SSH配置文件"></a>2. 修改SSH配置文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vim /etc/ssh/sshd_config<br></code></pre></td></tr></table></figure>
+
+<p>将57行的注释取消，将yes改为no</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#line 57:</span><br>PasswordAuthentication no<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-生成密钥（远程登陆）"><a href="#3-生成密钥（远程登陆）" class="headerlink" title="3. 生成密钥（远程登陆）"></a>3. 生成密钥（远程登陆）</h3><p>生成秘钥</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 生成秘钥</span><br>ssh-keygen -t rsa -b 4096<br></code></pre></td></tr></table></figure>
+
+<p>将公钥写入 <code>authorized_keys</code>文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> id_rsa.pub &gt;&gt; authorized_keys<br></code></pre></td></tr></table></figure>
+
+<p>将私钥拷贝到 U 盘（临时挂载点）上面</p>
+<blockquote>
+<p>这一步完成之后，即可回到实验室，不用留在机房里面了 🍺</p>
+</blockquote>
+<h2 id="其他配置"><a href="#其他配置" class="headerlink" title="其他配置"></a>其他配置</h2><h3 id="配置-sudo"><a href="#配置-sudo" class="headerlink" title="配置 sudo"></a>配置 <code>sudo</code></h3><p><code>Debian</code> 的 <code>visudo</code> 操作是使用 <code>nano</code> 来进行的。如果不喜欢 <code>nano</code> ，想要换成 <code>vim</code> ，请使用如下指令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">update-alternatives --config editor <span class="hljs-comment"># 进入可选列表之后选择 vim</span><br></code></pre></td></tr></table></figure>
+
+<p>编辑 <code>visudo</code>，禁用特定用户的特定权限</p>
+<h3 id="设置时钟同步"><a href="#设置时钟同步" class="headerlink" title="设置时钟同步"></a>设置时钟同步</h3><p>硬件时钟矫正 <code>hwclock</code></p>
+<p>设置时间 <code>date</code> 和 <code>hwclock</code> 同步</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> hwclock --systohc<br></code></pre></td></tr></table></figure>
+
+<p>修改时间为 <code>24小时</code></p>
+<p>重新加载守护进程配置文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> systemctl daemon-reload# 按照 /etc/fstab 重新挂载&amp;&amp; mount -a<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>配置Debian Server</div>
+      <div>https://q180.github.io/2025/07/03/配置Debian-Server/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Q180</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年7月3日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/06/29/linux(%E6%97%A0%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83)%E4%B8%8A%E4%BD%BF%E7%94%A8Clash%20%E6%88%96Mihomo%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86/" title="linux(无桌面环境)上使用Clash或Mihomo设置代理">
+                        <span class="hidden-mobile">linux(无桌面环境)上使用Clash或Mihomo设置代理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
