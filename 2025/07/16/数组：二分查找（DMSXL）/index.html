@@ -1,0 +1,704 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/Mr.Q.png">
+  <link rel="icon" href="/img/Mr.Q.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Q180">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="数组：二分查找（DMSXL）题目：704. 二分查找 - 力扣（LeetCode） 自己的解法：代码：front到end之间一定是target所在的范围，这个区间一直在缩小，当front &#x3D;&#x3D; end的时候，就是终止条件。当然由于我第一次没有意识到区间边界条件的开闭导致，终止条件会复杂一点。 由于我这里是使用递归实现的，而递归函数内排在前面的一定是终止条件。所以代码随想录中没有前面的if判断。 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数组：二分查找（DMSXL）">
+<meta property="og:url" content="https://q180.github.io/2025/07/16/%E6%95%B0%E7%BB%84%EF%BC%9A%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%EF%BC%88DMSXL%EF%BC%89/index.html">
+<meta property="og:site_name" content="Mr. Q">
+<meta property="og:description" content="数组：二分查找（DMSXL）题目：704. 二分查找 - 力扣（LeetCode） 自己的解法：代码：front到end之间一定是target所在的范围，这个区间一直在缩小，当front &#x3D;&#x3D; end的时候，就是终止条件。当然由于我第一次没有意识到区间边界条件的开闭导致，终止条件会复杂一点。 由于我这里是使用递归实现的，而递归函数内排在前面的一定是终止条件。所以代码随想录中没有前面的if判断。 1">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-07-16T10:17:08.000Z">
+<meta property="article:modified_time" content="2025-07-16T10:33:04.195Z">
+<meta property="article:author" content="Q180">
+<meta property="article:tag" content="刷题">
+<meta property="article:tag" content="代码随想录">
+<meta property="article:tag" content="数组">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>数组：二分查找（DMSXL） - Mr. Q</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"q180.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mr. Q</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/9.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="数组：二分查找（DMSXL）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-16 18:17" pubdate>
+          2025年7月16日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">数组：二分查找（DMSXL）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="数组：二分查找（DMSXL）"><a href="#数组：二分查找（DMSXL）" class="headerlink" title="数组：二分查找（DMSXL）"></a>数组：二分查找（DMSXL）</h1><h2 id="题目："><a href="#题目：" class="headerlink" title="题目："></a><strong>题目：</strong></h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/binary-search/">704. 二分查找 - 力扣（LeetCode）</a></p>
+<h2 id="自己的解法："><a href="#自己的解法：" class="headerlink" title="自己的解法："></a>自己的解法：</h2><h3 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h3><p><code>front</code>到<code>end</code>之间一定是<code>target</code>所在的范围，这个区间一直在缩小，当<code>front == end</code>的时候，就是终止条件。当然由于我第一次没有意识到区间边界条件的开闭导致，终止条件会复杂一点。</p>
+<p>由于我这里是使用递归实现的，而递归函数内排在前面的一定是终止条件。所以代码随想录中没有前面的<code>if</code>判断。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">search</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> target)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">binarySearch</span>(nums, <span class="hljs-number">0</span>, nums.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>, target);<br>    &#125;<br>    <br>    # 二分查找的递归函数<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">binarySearch</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> front, <span class="hljs-type">int</span> end, <span class="hljs-type">int</span> target)</span></span>&#123;<br>    # 终止条件，这里是一个可以优化的点<br>        <span class="hljs-keyword">if</span>(front == end || front == end <span class="hljs-number">-1</span>)&#123;<br>            <span class="hljs-keyword">if</span>(nums[front] == target) <span class="hljs-keyword">return</span> front;<br>            <span class="hljs-keyword">if</span>(nums[end] == target) <span class="hljs-keyword">return</span> end;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>        &#125;<br><br>        <span class="hljs-type">int</span> middle = (front + end) / <span class="hljs-number">2</span>;<br>        <br>        # 等于的情况排除，剩下只有大于或者小于<br>        <span class="hljs-keyword">if</span>(nums[middle] == target) <span class="hljs-keyword">return</span> middle;<br>        <br>        # 这里可以优化<br>        <span class="hljs-keyword">if</span>(nums[middle] &gt; target) <span class="hljs-keyword">return</span> <span class="hljs-built_in">binarySearch</span>(nums, front, middle, target);<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">binarySearch</span>(nums, middle, end, target);<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="复杂度分析："><a href="#复杂度分析：" class="headerlink" title="复杂度分析："></a>复杂度分析：</h3><p>时间复杂度：O(log(n))</p>
+<p>每次递归都可以舍去一半长度，所以是 <code>log_&#123;2&#125;(n)</code>是<code>log(n)</code>的时间复杂度。</p>
+<p>空间复杂度：O(log(n))</p>
+<p>由于递归了log_{2}(n)次每次都需要创建一个middle变量，而且函数参数使用的不是引用，每次同时也需要复制参数所以空间复杂度也是log(n)</p>
+<h3 id="代码优化"><a href="#代码优化" class="headerlink" title="代码优化"></a>代码优化</h3><h4 id="优化后（使用递归）："><a href="#优化后（使用递归）：" class="headerlink" title="优化后（使用递归）："></a>优化后（使用递归）：</h4><p>之前没有意识到区间<strong>边界的封闭开放</strong>情况，导致要去思考C++的取整是怎么做&#x7684;<strong>（是直接截断，只取整数部分）</strong>，然后去增加额外的终止判定条件。考虑这种情况，只有<strong>两个元素[1，3]，target&#x3D;2</strong>，不加front &#x3D;&#x3D; end -1判定条件会一直循环下去。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">search</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> target)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">binarySearch</span>(nums, <span class="hljs-number">0</span>, nums.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>, target);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">binarySearch</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> front, <span class="hljs-type">int</span> end, <span class="hljs-type">int</span>&amp; target)</span></span>&#123;<br>        <span class="hljs-keyword">if</span>(front == end)&#123;<br>            <span class="hljs-keyword">if</span>(nums[front] == target) <span class="hljs-keyword">return</span> front;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>        &#125;<br><br>        <span class="hljs-type">int</span> middle = (front + end) / <span class="hljs-number">2</span>;<br><br>        <span class="hljs-keyword">if</span>(nums[middle] == target) <span class="hljs-keyword">return</span> middle;<br>        <br>        <span class="hljs-keyword">if</span>(nums[middle] &gt; target) <span class="hljs-keyword">return</span> <span class="hljs-built_in">binarySearch</span>(nums, front, middle<span class="hljs-number">-1</span>, target);<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">binarySearch</span>(nums, middle<span class="hljs-number">+1</span>, end, target);<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h4 id="空间优化版本（不使用递归）："><a href="#空间优化版本（不使用递归）：" class="headerlink" title="空间优化版本（不使用递归）："></a>空间优化版本（不使用递归）：</h4><p>递归是有代价的，因为你每次都要进入一个递归栈，需要创建变量。也就是说你递归多少次，你的空间复杂度的下限就是多少。而while原地循环，则可以很好利用已经存在的变量，从而节约空间。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">search</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> target)</span> </span>&#123;<br>        <span class="hljs-type">int</span> front = <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> end = nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-type">int</span> middle = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(front &lt;= end)&#123;<br>        # 这里可以的终止条件可以直接去掉，我这里是因为从递归实现过来的，还是有点递归的影子在。<br>            <span class="hljs-keyword">if</span>(front == end)&#123;<br>                <span class="hljs-keyword">if</span>(nums[front] == target) <span class="hljs-keyword">return</span> front;<br>                <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>            &#125;<br><br>            middle = (front + end) / <span class="hljs-number">2</span>;<br><br>            <span class="hljs-keyword">if</span>(nums[middle] == target) <span class="hljs-keyword">return</span> middle;<br><br>            <span class="hljs-keyword">if</span>(nums[middle] &gt; target) end = middle <span class="hljs-number">-1</span>;<br>            <span class="hljs-keyword">else</span> front = middle + <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="相似题目"><a href="#相似题目" class="headerlink" title="相似题目"></a>相似题目</h2><h3 id="35-搜索插入位置"><a href="#35-搜索插入位置" class="headerlink" title="35.搜索插入位置"></a>35.搜索插入位置</h3><h4 id="题目：-1"><a href="#题目：-1" class="headerlink" title="题目："></a>题目：</h4><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/search-insert-position/">35. 搜索插入位置 - 力扣（LeetCode）</a></p>
+<h4 id="自己的解法：-1"><a href="#自己的解法：-1" class="headerlink" title="自己的解法："></a>自己的解法：</h4><p>这里题目条件是相似的，需要具体变化的是终止条件。这里全是有递归的影子在，每次都把终止条件写在前面，导致分析的角度有一些变换。</p>
+<p>分析终止时的情况：</p>
+<p>1、<code>nums[front] == target</code>则需要返回<code>front</code>；</p>
+<p>2、<code>nums[front] &gt; target</code>则表明<code>front</code>的位置应该是插入位置；</p>
+<p>3、<code>nums[front] &lt; target</code>则表明就在<code>front</code>后面插入就可以了（这是因为<code>front</code>和<code>end</code>之间是<code>target</code>所属区间，既然<code>front==end</code>此时的<code>nums[front]</code>都小于<code>target</code>，那只能证明数组里没有<code>target</code>并且，<code>target</code>就应该在<code>front</code>（或者<code>end</code>）后面）。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">searchInsert</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> target)</span> </span>&#123;<br>        <span class="hljs-type">int</span> front =<span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> end = nums.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>;<br>        <span class="hljs-type">int</span> middle = <span class="hljs-number">0</span>;<br><br>        <span class="hljs-keyword">while</span>(front &lt;= end)&#123;<br>            <span class="hljs-keyword">if</span>(front == end)&#123;<br>                <span class="hljs-keyword">if</span>(nums[front] &gt;= target) <span class="hljs-keyword">return</span> front;<br>                <span class="hljs-keyword">return</span> front + <span class="hljs-number">1</span>;<br>            &#125;<br><br>            middle = (front + end) /<span class="hljs-number">2</span>;<br><br>            <span class="hljs-keyword">if</span>(nums[middle] == target) <span class="hljs-keyword">return</span> middle;<br>            <span class="hljs-keyword">if</span>(nums[middle] &gt; target) end = middle - <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span> front = middle + <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> front;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h5 id="复杂度分析：-1"><a href="#复杂度分析：-1" class="headerlink" title="复杂度分析："></a>复杂度分析：</h5><p>时间复杂度：O(log(n))</p>
+<p>空间复杂度：O(1)</p>
+<h4 id="代码随想录的解法："><a href="#代码随想录的解法：" class="headerlink" title="代码随想录的解法："></a>代码随想录的解法：</h4><p>代码更简洁了</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">searchInsert</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> target)</span> </span>&#123;<br>        <span class="hljs-type">int</span> front = <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> end = nums.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>;<br>        <span class="hljs-type">int</span> middle = <span class="hljs-number">0</span>;<br><br>        <span class="hljs-keyword">while</span>(front &lt;= end)&#123;<br>            middle = (front + end) / <span class="hljs-number">2</span>;<br>            <span class="hljs-keyword">if</span>(nums[middle] == target) <span class="hljs-keyword">return</span> middle;<br>            <span class="hljs-keyword">if</span>(nums[middle] &gt; target) end = middle - <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span> front = middle + <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> front; # 这里可以是 end + <span class="hljs-number">1</span>， 当然也可以是front因为刚刚不满足<span class="hljs-keyword">while</span>退出来所以一定是front == end + <span class="hljs-number">1</span><br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="34-在排序数组中查找元素的第一个和最后一个位置"><a href="#34-在排序数组中查找元素的第一个和最后一个位置" class="headerlink" title="34.在排序数组中查找元素的第一个和最后一个位置"></a><a target="_blank" rel="noopener" href="https://programmercarl.com/0034.%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE.html">34.在排序数组中查找元素的第一个和最后一个位置</a></h3><h4 id="题目：-2"><a href="#题目：-2" class="headerlink" title="题目："></a>题目：</h4><p><a target="_blank" rel="noopener" href="https://programmercarl.com/0034.%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE.html">34.在排序数组中查找元素的第一个和最后一个位置</a></p>
+<h4 id="自己的解法：-2"><a href="#自己的解法：-2" class="headerlink" title="自己的解法："></a>自己的解法：</h4><p>第一次尝试（堆栈溢出）：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">searchRange</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> target)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">binarySearch</span>(nums, <span class="hljs-number">0</span>, nums.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>, target);<br>    &#125;<br><br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">binarySearch</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> front, <span class="hljs-type">int</span> end,</span></span><br><span class="hljs-params"><span class="hljs-function">                             <span class="hljs-type">int</span>&amp; target)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (front == end) &#123;<br>            <span class="hljs-keyword">if</span> (nums[front] == target)<br>                <span class="hljs-keyword">return</span> vector&lt;<span class="hljs-type">int</span>&gt;&#123;front, end&#125;;<br>            <span class="hljs-keyword">return</span> vector&lt;<span class="hljs-type">int</span>&gt;&#123;<span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>&#125;;<br>        &#125;<br><br>        <span class="hljs-type">int</span> middle = (front + end) / <span class="hljs-number">2</span>;<br>        vector&lt;<span class="hljs-type">int</span>&gt; left = <span class="hljs-built_in">binarySearch</span>(nums, front, middle - <span class="hljs-number">1</span>, target);<br>        vector&lt;<span class="hljs-type">int</span>&gt; right = <span class="hljs-built_in">binarySearch</span>(nums, middle + <span class="hljs-number">1</span>, end, target);<br>        <span class="hljs-keyword">if</span> (left[<span class="hljs-number">0</span>] != <span class="hljs-number">-1</span> &amp;&amp; right[<span class="hljs-number">0</span>] != <span class="hljs-number">-1</span>)<br>            <span class="hljs-keyword">return</span> vector&lt;<span class="hljs-type">int</span>&gt;&#123;left[<span class="hljs-number">0</span>], right[<span class="hljs-number">1</span>]&#125;;<br>        <span class="hljs-keyword">if</span> (left[<span class="hljs-number">0</span>] != <span class="hljs-number">-1</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt;(left[<span class="hljs-number">0</span>],<br>                               nums[middle] == target ? middle : left[<span class="hljs-number">1</span>]);<br>        <span class="hljs-keyword">if</span> (right[<span class="hljs-number">0</span>] != <span class="hljs-number">-1</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt;(nums[middle] == target ? middle : right[<span class="hljs-number">0</span>],<br>                               right[<span class="hljs-number">1</span>]);<br>        <span class="hljs-keyword">if</span> (nums[middle] == target)<br>            <span class="hljs-keyword">return</span> vector&lt;<span class="hljs-type">int</span>&gt;&#123;middle, middle&#125;;<br>        <span class="hljs-keyword">return</span> vector&lt;<span class="hljs-type">int</span>&gt;&#123;<span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>&#125;;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>第二次尝试：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">searchRange</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> target)</span> </span>&#123;<br>        <span class="hljs-type">int</span> front = <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> end = nums.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>;<br>        <span class="hljs-type">int</span> middle = <span class="hljs-number">0</span>;<br><br>        <span class="hljs-keyword">while</span>(front &lt;= end)&#123;<br>            middle = (front + end) / <span class="hljs-number">2</span>;<br>            # 找到目标元素在数组中位置，需要找到前后的边界<br>            <span class="hljs-keyword">if</span>(nums[middle] == target)&#123;<br>                <span class="hljs-type">int</span> left = middle;<br>                <span class="hljs-type">int</span> right = middle;<br>                <span class="hljs-keyword">while</span>(left &gt;= <span class="hljs-number">0</span> &amp;&amp; nums[left] == target)&#123; left--; &#125;;<br>                <span class="hljs-keyword">while</span>(right &lt; nums.<span class="hljs-built_in">size</span>() &amp;&amp; nums[right] == target)&#123; right++; &#125;;<br>                <span class="hljs-keyword">return</span> vector&lt;<span class="hljs-type">int</span>&gt;&#123;left + <span class="hljs-number">1</span>, right - <span class="hljs-number">1</span>&#125;;<br>            &#125;<br>            <span class="hljs-keyword">if</span>(nums[middle] &gt; target) end = middle - <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span> front = middle + <span class="hljs-number">1</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> vector&lt;<span class="hljs-type">int</span>&gt;&#123;<span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>&#125;;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h5 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h5><p>时间复杂度：最坏情况O(n)。</p>
+<p>找到一个目标元素所在的位置，需要O(log(n))；搜索所有的目标元素（假设目标元素有m个），需要O(m)。按理说时间复杂度应该是O(log(n) + m)，但m越长，找到一个目标元素所需要的时间就越短；考虑当 m &#x3D;&#x3D; n 时候， 寻找一个目标元素的时间为O(1)，所以时间复杂度变成了O(n)。</p>
+<p>空间复杂度：任然是O(1)。</p>
+<h4 id="代码随想录的解法：-1"><a href="#代码随想录的解法：-1" class="headerlink" title="代码随想录的解法："></a>代码随想录的解法：</h4><p>核心做法是：每次相等的时候，把&#x3D;&#x3D;情况当作&gt;或&lt;情况，故意让他找不到。第一次把&#x3D;&#x3D;当作&lt;，找右边界。第二次把&#x3D;&#x3D;当作&lt;，找左边界。为什么可以这么做，就举例第一次的情况（把&#x3D;&#x3D;当作&lt;），更新front的时候一定是nums[middle]&lt;target，而&#x3D;&#x3D;情况之后一定是&gt;，一定不会去更新front，也就是相当于找到右边界。同样的也就能找到左边界。注意是先赋值再+1，还是先+1再赋值（也就是else的情况，代码第15、16行，我这里故意与代码随想录写的不一样，这两种情况，最终的情况分析的条件判定有一点区别）。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">searchRange</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> target)</span> </span>&#123;<br>        <span class="hljs-type">int</span> front = <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> end = nums.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>;<br>        <span class="hljs-type">int</span> middle = <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> leftBorder = <span class="hljs-number">-2</span>;<br>        <span class="hljs-type">int</span> rightBorder = <span class="hljs-number">-2</span>;<br><br>        <span class="hljs-comment">// 寻找右边界</span><br>        <span class="hljs-keyword">while</span>(front &lt;= end)&#123;<br>            middle = (front + end) / <span class="hljs-number">2</span>;<br>            <span class="hljs-keyword">if</span>(nums[middle] &gt; target) end = middle - <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span>&#123;<br>                rightBorder = middle;<br>                front = middle + <span class="hljs-number">1</span>;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-comment">// 寻找左边界</span><br>        front = <span class="hljs-number">0</span>; <br>        end = nums.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>;<br>        middle = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(front &lt;= end)&#123;<br>            middle = (front + end) / <span class="hljs-number">2</span>;<br>            <span class="hljs-keyword">if</span>(nums[middle] &lt; target) front = middle + <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span>&#123;<br>                leftBorder = middle;<br>                end = middle - <span class="hljs-number">1</span>;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">if</span>(leftBorder == <span class="hljs-number">-2</span> || rightBorder == <span class="hljs-number">-2</span>) <span class="hljs-keyword">return</span> vector&lt;<span class="hljs-type">int</span>&gt;&#123;<span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>&#125;;<br><br>        <span class="hljs-keyword">if</span>(rightBorder - leftBorder &gt;= <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> vector&lt;<span class="hljs-type">int</span>&gt;&#123;leftBorder, rightBorder&#125;;<br><br>        <span class="hljs-keyword">return</span> vector&lt;<span class="hljs-type">int</span>&gt;&#123;<span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>&#125;;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="69-x-的平方根"><a href="#69-x-的平方根" class="headerlink" title="69.x 的平方根"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/sqrtx/">69.x 的平方根</a></h3><h4 id="题目：-3"><a href="#题目：-3" class="headerlink" title="题目："></a>题目：</h4><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/sqrtx/">69. x 的平方根  - 力扣（LeetCode）</a></p>
+<h4 id="自己的解法：-3"><a href="#自己的解法：-3" class="headerlink" title="自己的解法："></a>自己的解法：</h4><p>这里很像前面的<a target="_blank" rel="noopener" href="https://exyy3371w5.feishu.cn/wiki/NieewbWTgiOvHikZoUKca1zwnbn#share-QzA3dnlw6oVbQTxCr0CcsZt8njc"> 记录</a>35.搜索插入位置，相似点是他们都是找&lt;&#x3D;目标元素的那个值（这里是说要截断，前面的是说要插入位置索引）。但是我这两次判断不等时返回的代码有一些略微的区别，可以对比着看。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-type">int</span> <span class="hljs-title function_">mySqrt</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">front</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">end</span> <span class="hljs-operator">=</span> x;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">middle</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <br>        <span class="hljs-keyword">while</span>(front &lt;= end)&#123;<br>            middle = (front + end) / <span class="hljs-number">2</span>;<br>            <br>            # 开根号刚好是整数的情况<br>            <span class="hljs-keyword">if</span>(<span class="hljs-type">long</span>(middle) * middle == x) <span class="hljs-keyword">return</span> middle;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-type">long</span>(middle) * middle &gt; x) end = middle - <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span> front = middle + <span class="hljs-number">1</span>;<br>        &#125;<br>        <br>        # 不是整数的情况，采用截断的方式，所以一定是小于X的那个数字<br>        <span class="hljs-keyword">if</span>(<span class="hljs-type">long</span>(front) * front &lt; x) <span class="hljs-keyword">return</span> front;<br>        <span class="hljs-keyword">return</span> end;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h5 id="复杂度分析：-2"><a href="#复杂度分析：-2" class="headerlink" title="复杂度分析："></a>复杂度分析：</h5><p>时间复杂度：O(log(n))</p>
+<p>空间复杂度：O(1)</p>
+<h4 id="代码随想录的解法：-2"><a href="#代码随想录的解法：-2" class="headerlink" title="代码随想录的解法："></a>代码随想录的解法：</h4><p>代码随想录未提供</p>
+<h3 id="367-有效的完全平方数"><a href="#367-有效的完全平方数" class="headerlink" title="367.有效的完全平方数"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/valid-perfect-square/">367.有效的完全平方数</a></h3><h4 id="题目：-4"><a href="#题目：-4" class="headerlink" title="题目："></a>题目：</h4><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/valid-perfect-square/">367. 有效的完全平方数 - 力扣（LeetCode）</a></p>
+<h4 id="自己的解法：-4"><a href="#自己的解法：-4" class="headerlink" title="自己的解法："></a>自己的解法：</h4><p>这道题就是<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/sqrtx/">69.x 的平方根</a>的化简版，只让你返回true或者false。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    bool <span class="hljs-title function_">isPerfectSquare</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">front</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">end</span> <span class="hljs-operator">=</span> num;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">middle</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br><br>        <span class="hljs-keyword">while</span>(front &lt;= end)&#123;<br>            middle = (front + end) / <span class="hljs-number">2</span>;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-type">long</span>(middle) * middle == num) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-type">long</span>(middle) * middle &gt; num) end = middle - <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span> front = middle + <span class="hljs-number">1</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h5 id="复杂度分析：-3"><a href="#复杂度分析：-3" class="headerlink" title="复杂度分析："></a>复杂度分析：</h5><p>时间复杂度：O(log(n))</p>
+<p>空间复杂度：O(1)</p>
+<h4 id="代码随想录的解法：-3"><a href="#代码随想录的解法：-3" class="headerlink" title="代码随想录的解法："></a>代码随想录的解法：</h4><p>未提供</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%88%B7%E9%A2%98/" class="category-chain-item">刷题</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%88%B7%E9%A2%98/" class="print-no-link">#刷题</a>
+      
+        <a href="/tags/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95/" class="print-no-link">#代码随想录</a>
+      
+        <a href="/tags/%E6%95%B0%E7%BB%84/" class="print-no-link">#数组</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>数组：二分查找（DMSXL）</div>
+      <div>https://q180.github.io/2025/07/16/数组：二分查找（DMSXL）/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Q180</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年7月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/03/%E9%85%8D%E7%BD%AEDebian-Server/" title="配置Debian Server">
+                        <span class="hidden-mobile">配置Debian Server</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
